@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+
+Building:
+  stage: build
+  tags:
+    - docker
+  services:
+  - docker:19.03.12-dind
+  image: docker
+  script:
+    - docker build -t autobol/course_project:frontend .
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+    - docker push autobol/course_project:frontend
+
+Testing:
+  stage: test
+  tags:
+    - docker
+  image: autobol/course_project:frontend
+  script:
+    - pwd
+
