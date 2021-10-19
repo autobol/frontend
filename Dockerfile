@@ -2,7 +2,7 @@ FROM alpine:latest AS build
 
 RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add gradle &&\
-  apk --no-cache add NODE &&\
+  apk --no-cache add nodejs-current &&\
    apk --no-cache add yarn &&\
     mkdir -p /app
 WORKDIR /app
