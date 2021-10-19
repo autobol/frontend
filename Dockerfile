@@ -7,7 +7,7 @@ RUN apk --no-cache add openjdk8 &&\
     mkdir -p /app
 WORKDIR /app
 COPY . /app
-RUN ["gradle", "build"]
+RUN ["gradle", "jar"]
 
 
 FROM alpine:latest AS work
