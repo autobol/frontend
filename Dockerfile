@@ -1,7 +1,7 @@
 FROM alpine:latest AS build
 
 RUN apk --no-cache add openjdk8 &&\
- apk --no-cache add gradle &&\
+ apk --no-cache add gradle=6.7.1 &&\
   apk --no-cache add nodejs=14.15.0 &&\
    # apk --no-cache add yarn &&\
     mkdir -p /app
