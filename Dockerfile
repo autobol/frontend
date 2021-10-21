@@ -3,7 +3,7 @@ FROM alpine:latest AS build
 RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add gradle &&\
   apk --no-cache add nodejs &&\
-   apk --no-cache add yarn &&\
+   # apk --no-cache add yarn &&\
     mkdir -p /app
 WORKDIR /app
 COPY . /app
