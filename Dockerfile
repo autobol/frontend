@@ -1,7 +1,6 @@
-FROM alpine:latest AS build
+FROM openjdk:8-alpine AS build
 
-RUN apk --no-cache add openjdk8 &&\
- apk --no-cache add gradle &&\
+RUN apk --no-cache add gradle &&\
   apk --no-cache add nodejs &&\
    apk --no-cache add yarn &&\
     mkdir -p /app
@@ -10,7 +9,7 @@ COPY . /app
 RUN ["gradle", "jar"]
 
 
-FROM alpine:latest AS work
+FROM openjdk:8-alpine AS work
 
 RUN mkdir /app
 WORKDIR /app
