@@ -1,4 +1,4 @@
-FROM openjdk:8-alpine AS build
+FROM openjdk:8 AS build
 
 RUN apk --no-cache add gradle &&\
   apk --no-cache add nodejs &&\
@@ -9,7 +9,7 @@ COPY . /app
 RUN ["gradle", "jar"]
 
 
-FROM openjdk:8-alpine AS work
+FROM openjdk:8 AS work
 
 RUN mkdir /app
 WORKDIR /app
