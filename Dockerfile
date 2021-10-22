@@ -1,9 +1,8 @@
-FROM java:8-jdk AS build
+FROM gradle:6.6.1-jdk8 AS build
 
-RUN apk --no-cache add gradle &&\
-  apk --no-cache add nodejs &&\
-   apk --no-cache add yarn &&\
-    mkdir -p /app
+RUN apk --no-cache add nodejs &&\
+ apk --no-cache add yarn &&\
+  mkdir -p /app
 WORKDIR /app
 COPY . /app
 RUN ["gradle", "jar"]
