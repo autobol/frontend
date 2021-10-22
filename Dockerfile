@@ -1,4 +1,4 @@
-FROM openjdk:8 AS build
+FROM java:8-jdk AS build
 
 RUN apk --no-cache add gradle &&\
   apk --no-cache add nodejs &&\
