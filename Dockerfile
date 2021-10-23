@@ -10,12 +10,12 @@ COPY . /app
 RUN gradle wrapper --gradle-version 6.7.1 &&\
   chmod +x gradlew
 RUN ["./gradlew", "jar"]
-RUN ["ls", "./build/libs/"]
+RUN ["ls", "./devschool-front-app-server/"]
 
 
 FROM openjdk:8 AS work
 
 RUN mkdir /app
 WORKDIR /app
-COPY --from=build app/build/libs/*.jar app.jar
+COPY --from=build app/devschool-front-app-server/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
