@@ -14,9 +14,6 @@ RUN apk --no-cache add openjdk8 &&\
   mkdir -p /app
 WORKDIR /app
 COPY . /app
-RUN yarn set version $YARN_VERSION &&\
- gradle wrapper --gradle-version $GRADLE_VERSION &&\
- chmod +x gradlew
 
 RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
@@ -29,7 +26,9 @@ RUN source $NVM_DIR/nvm.sh \
 RUN node -v
 RUN npm -v
 
-
+RUN yarn set version $YARN_VERSION &&\
+ gradle wrapper --gradle-version $GRADLE_VERSION &&\
+ chmod +x gradlew
 
 RUN ["./gradlew", "jar"]
 
