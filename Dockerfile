@@ -9,7 +9,7 @@ RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add gradle &&\
  apk --no-cache add curl &&\
  apk --no-cache add bash &&\
- mkdir -p /app
+  mkdir -p /app
 WORKDIR /app
 COPY . /app
 RUN yarn set version $YARN_VERSION &&\
