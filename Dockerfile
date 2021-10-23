@@ -15,13 +15,11 @@ RUN apk --no-cache add openjdk8 &&\
 WORKDIR /app
 COPY . /app
 
-RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-
-RUN source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash &&\
+ source $NVM_DIR/nvm.sh \
+ nvm install $NODE_VERSION \
+# nvm alias default $NODE_VERSION \
+# nvm use default
 
 RUN node -v
 RUN npm -v
