@@ -10,6 +10,7 @@ COPY . /app
 RUN gradle wrapper --gradle-version 6.7.1 &&\
   chmod +x gradlew
 RUN ["./gradlew", "jar"]
+RUN ["ls", ./build/libs/]
 
 
 FROM openjdk:8 AS work
