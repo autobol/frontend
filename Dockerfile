@@ -16,7 +16,7 @@ RUN apk --no-cache add openjdk8 &&\
 WORKDIR /app
 COPY . /app
 RUN curl -L -O https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh &&\
- chmod +x install.sh &&\
+ chmod +x ./install.sh &&\
   ./intsall.sh
 RUN nvm install $NODE_VERSION &&\
  yarn set version &YARN_VERSION &&\
