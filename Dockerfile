@@ -1,7 +1,6 @@
 FROM alpine:latest AS build
 
-ENV NODE_VERSION=14.15.0 \
- YARN_VERSION=1.22.11 \
+ENV YARN_VERSION=1.22.11 \
  GRADLE_VERSION=6.7.1
 
 RUN apk --no-cache add openjdk8 &&\
