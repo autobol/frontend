@@ -10,9 +10,6 @@ Building:
   image: docker
   script:
     - docker build \
-     -t autobol/course_project:frontend \
-     --build-arg YARN_VERSION=$YARN_VERSION \
-     GRADLE_VERSION=$GRADLE_VERSION \
-     NODE_VERSION=$NODE_VERSION .
+     -t autobol/course_project:frontend --build-arg YARN_VERSION=$YARN_VERSION GRADLE_VERSION=$GRADLE_VERSION NODE_VERSION=$NODE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/course_project:frontend
