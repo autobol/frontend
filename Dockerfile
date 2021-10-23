@@ -8,7 +8,7 @@ ARG GRADLE_VERSION=6.7.1
 ENV GRADLE_VERSION=$GRADLE_VERSION
 
 RUN apk --no-cache add openjdk8 &&\
- apk --mo-cache add nodejs:14.15.0 &&\
+ apk --no-cache add nodejs:14.15.0 &&\
   apk --no-cache add yarn &&\
    apk --no-cache add gradle &&\
     apk --no-cache add curl &&\
