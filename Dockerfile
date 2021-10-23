@@ -1,3 +1,5 @@
+ARG JAVA_VESRION
+
 FROM alpine:latest AS build
 
 ARG YARN_VERSION
@@ -10,7 +12,6 @@ ENV YARN_VERSION=$YARN_VERSION \
  NODE_VERSION=$NODE_VERSION
 
 RUN apk --no-cache add openjdk8 &&\
- apk --no-cache add yarn &&\
  apk --no-cache add gradle &&\
  apk --no-cache add curl &&\
  apk --no-cache add bash &&\
@@ -22,6 +23,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | b
  source $NVM_DIR/nvm.sh &&\
  nvm install $NODE_VERSION &&\
  nvm use $NODE_VERSION &&\
+ node -v &&\
  yarn set version $YARN_VERSION &&\
  gradle wrapper --gradle-version $GRADLE_VERSION &&\
  chmod +x gradlew
