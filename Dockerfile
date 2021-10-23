@@ -16,7 +16,7 @@ COPY . /app
 RUN chmod +x nvm.sh &&\
  ./nvm.sh &&\
   nvm install $NODE_VERSION &&\
-   yarn set version &YARN_VERSION &&\
+   yarn set version $YARN_VERSION &&\
     gradle wrapper --gradle-version $GRADLE_VERSION &&\
      chmod +x gradlew
 RUN ["./gradlew", "jar"]
