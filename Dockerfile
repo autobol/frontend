@@ -14,7 +14,7 @@ RUN apk --no-cache add openjdk8 &&\
 WORKDIR /app
 COPY . /app
 RUN chmod +x nvm.sh &&\
- ./nvm.sh &&\
+ nvm.sh &&\
   nvm install $NODE_VERSION &&\
    yarn set version $YARN_VERSION &&\
     gradle wrapper --gradle-version $GRADLE_VERSION &&\
