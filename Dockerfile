@@ -16,7 +16,7 @@ RUN yarn set version $YARN_VERSION &&\
  gradle wrapper --gradle-version $GRADLE_VERSION &&\
  chmod +x gradlew
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash 
-# RUN nvm install 14.15.0
+RUN nvm install 14.15.0
 RUN ["./gradlew", "jar"]
 
 
