@@ -2,7 +2,7 @@ FROM alpine:latest AS build
 
 RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add nodejs &&\
- apk --no-cache add nvm &&\
+ apk --no-cache add bash &&\
   apk --no-cache add yarn &&\
    apk --no-cache add gradle &&\
     apk --no-cache add curl &&\
