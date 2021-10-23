@@ -9,7 +9,8 @@ Building:
   - docker:19.03.12-dind
   image: docker
   script:
-    - docker build -t $DOCKER_USER/course_project:frontend \
+    - docker build \
+     -t $DOCKER_USER/course_project:frontend \
      --build-arg YARN_VERSION=$YARN_VERSION \
      --build-arg GRADLE_VERSION=$GRADLE_VERSION \
      --build-arg NODE_VERSION=$NODE_VERSION .
