@@ -4,7 +4,7 @@ RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add nodejs &&\
   apk --no-cache add yarn &&\
    apk --no-cache add gradle &&\
-    apk --mo-cache add curl &&\
+    apk --no-cache add curl &&\
      mkdir -p /app
 WORKDIR /app
 COPY . /app
