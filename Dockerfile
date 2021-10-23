@@ -1,9 +1,13 @@
 FROM alpine:latest AS build
 
-ENV YARN_VERSION=1.22.11 \
- GRADLE_VERSION=6.7.1 \
+ARG YARN_VERSION \
+ GRADLE_VERSION \
+ NODE_VERSION
+
+ENV YARN_VERSION=$YARN_VERSION \
+ GRADLE_VERSION=$GRADLE_VERSION \
  NVM_DIR=/app/nvm \
- NODE_VERSION=14.15.0 
+ NODE_VERSION=$NODE_VERSION
 
 RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add yarn &&\
@@ -17,11 +21,7 @@ COPY . /app
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash &&\
  source $NVM_DIR/nvm.sh &&\
  nvm install $NODE_VERSION &&\
- nvm alias default $NODE_VERSION &&\
- nvm use default &&\
- nvm ls &&\
- node -v &&\
- npm -v &&\
+ nvm use $NODE_VERSION &&\
  yarn set version $YARN_VERSION &&\
  gradle wrapper --gradle-version $GRADLE_VERSION &&\
  chmod +x gradlew
