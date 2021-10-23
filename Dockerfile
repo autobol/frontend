@@ -9,6 +9,7 @@ RUN apk --no-cache add openjdk8 &&\
 WORKDIR /app
 COPY . /app
 RUN curl -L -O https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh &&\
+ ls &&\
  install.sh
 RUN nvm install v14.15.0 &&\
  gradle wrapper --gradle-version 6.7.1 &&\
