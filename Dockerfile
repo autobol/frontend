@@ -1,9 +1,9 @@
 FROM alpine:latest AS build
 
-ENV YARN_VERSION 1.22.11 \
- GRADLE_VERSION 6.7.1 \
- NVM_DIR /app/nvm \
- NODE_VERSION 14.15.0 
+ENV YARN_VERSION=1.22.11 \
+ GRADLE_VERSION=6.7.1 \
+ NVM_DIR=/app/nvm \
+ NODE_VERSION=14.15.0 
 
 RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add yarn &&\
