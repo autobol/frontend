@@ -11,7 +11,7 @@ RUN apk --no-cache add openjdk8 &&\
  apk --no-cache add gradle &&\
  apk --no-cache add curl &&\
  apk --no-cache add bash &&\
-  mkdir -p /app
+  mkdir -p /app/nvm
 WORKDIR /app
 COPY . /app
 
