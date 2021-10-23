@@ -7,7 +7,7 @@ RUN apk --no-cache add openjdk8 &&\
     mkdir -p /app
 WORKDIR /app
 COPY . /app
-RUN nvm install v14.15.0
+RUN nvm install v14.15.0 &&\
  gradle wrapper --gradle-version 6.7.1 &&\
   chmod +x gradlew
 RUN ["./gradlew", "jar"]
