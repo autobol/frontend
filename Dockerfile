@@ -22,8 +22,12 @@ COPY . /app
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash &&\
  source $NVM_DIR/nvm.sh &&\
  nvm install $NODE_VERSION &&\
- nvm use $NODE_VERSION &&\
- node -v &&\
+ nvm use $NODE_VERSION
+
+ENV NODE_PATH=$NVM_DIR/v$NODE_VERSION/lib/node_modules \
+ PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+RUN node -v &&\
  yarn set version $YARN_VERSION &&\
  gradle wrapper --gradle-version $GRADLE_VERSION &&\
  chmod +x gradlew
