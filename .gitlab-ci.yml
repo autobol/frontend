@@ -1,13 +1,28 @@
 stages:
+  - pre-build
   - build
 
-Building:
-  stage: build
+.job_template: &job_config
   tags:
     - docker
   services:
-  - docker:19.03.12-dind
+    - docker:19.03.12-dind
   image: docker
+
+Pre-building:
+  stage: pre-build
+  <<: *job_config
+  script:
+    - docker build `
+     `-t $DOCKER_USER/image_for_build_front:latest `
+     `-f ./Dockerfile.pre-build`
+     `--build-arg ALPINE_VERSION=$ALPINE_VERSION .
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+    - docker push $DOCKER_USER/image_for_build_front:latest
+
+Building:
+  stage: build
+  <<: *job_config
   script:
     - docker build `
      `-t $DOCKER_USER/course_project:frontend `
