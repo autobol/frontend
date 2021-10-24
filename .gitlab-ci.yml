@@ -19,7 +19,11 @@ Pre-building:
      `--build-arg ALPINE_VERSION=$ALPINE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/image_for_build_front:latest
-  when: manual
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" || $RUN_REBUILD_IMAGE_FOR_BUILD != "no"'
+      when: always
+    - when: never
+
 
 Building:
   stage: build
