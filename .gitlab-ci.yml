@@ -15,7 +15,7 @@ Pre-building:
   script:
     - docker build `
      `-t $DOCKER_USER/image_for_build_front:latest `
-     `-f ./Dockerfile.pre-build`
+     `-f ./Dockerfile.pre-build `
      `--build-arg ALPINE_VERSION=$ALPINE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/image_for_build_front:latest
