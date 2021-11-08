@@ -42,4 +42,4 @@ Deploy:
   tags:
     - aws_deploy
   script:
-    - helm upgrade app app-depoloy-chart
+    - helm upgrade app app-deploy-chart
