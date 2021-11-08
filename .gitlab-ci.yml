@@ -26,7 +26,7 @@ Pre-building:
     - when: never
 
 
-Building:
+# Building:
   stage: build
   <<: *job_config
   script:
@@ -36,7 +36,6 @@ Building:
      `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/frontend:latest
-  when: never
 
 Deploy:
   stage: deploy
