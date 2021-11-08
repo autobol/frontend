@@ -1,6 +1,7 @@
 stages:
   - pre-build
   - build
+  - deploy
 
 .job_template: &job_config
   tags:
@@ -20,7 +21,7 @@ Pre-building:
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/image_for_build_front:latest
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" || $RUN_REBUILD_IMAGE_FOR_BUILD != "no"'
+    - if: '$RUN_REBUILD_IMAGE_FOR_BUILD != "no"'
       when: always
     - when: never
 
@@ -35,3 +36,13 @@ Building:
      `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/frontend:latest
+  when: never
+
+Deploy:
+  stage: deploy
+  tags:
+    - aws_deploy
+  script:
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - sudo mv ./kubectl /usr/local/bin/kubectl
