@@ -30,8 +30,8 @@ Building:
   <<: *job_config
   script:
     - docker build `
-     `-t $DOCKER_USER/course_project:frontend `
+     `-t $DOCKER_USER/frontend:latest `
      `--build-arg YARN_VERSION=$YARN_VERSION `
      `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-    - docker push $DOCKER_USER/course_project:frontend
+    - docker push $DOCKER_USER/frontend:latest
