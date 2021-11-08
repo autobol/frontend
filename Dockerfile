@@ -19,4 +19,4 @@ FROM openjdk:8 AS work
 RUN mkdir /app
 WORKDIR /app
 COPY --from=build app/devschool-front-app-server/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar", "-P:ktor.backend.port= ", "-P:ktor.backend.host=dev-school-app.rvv.school.telekom.sh"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
