@@ -3,7 +3,7 @@ stages:
   - build
   - deploy
 
-.job_template: &job_config
+.build_template: &build_template
   tags:
     - docker
   services:
@@ -12,7 +12,7 @@ stages:
 
 Pre-build:
   stage: pre-build
-  <<: *job_config
+  <<: *build_template
   script:
     - docker build `
      `-t $DOCKER_USER/image_for_build_front:latest `
@@ -28,7 +28,7 @@ Pre-build:
 
 Build:
   stage: build
-  <<: *job_config
+  <<: *build_template
   script:
     - docker build `
      `-t $DOCKER_REGISTRY/frontend:latest `
@@ -37,23 +37,27 @@ Build:
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_REGISTRY/frontend:latest
 
-Deploy_dev:
+
+.deploy_teamplate: &deploy_teamplate
   stage: deploy
+  script:
+    - sed -i "s/NAMESPACE/$NAMESPACE/g" ./app-deploy-chart/values.yaml
+    - sed -i "s/TAG/$TAG/g" ./app-deploy-chart/values.yaml
+    - helm upgrade app app-deploy-chart
+
+Deploy_dev:
   needs:
     - Build
   tags:
     - aws_dev_deploy
-  script:
-    - sed -i "s/NAMESPACE/$NAMESPACE_DEV/g" ./app-deploy-chart/values.yaml
-    - sed -i "s/TAG/latest/g" ./app-deploy-chart/values.yaml
-    - helm upgrade app app-deploy-chart
+  <<: *deploy_teamplate
+
 
 
 Deploy_prod:
-  stage: deploy
+  needs:
+    - Deploy_dev
   tags:
     - aws_prod_deploy
-  script:
-    - sed -i "s/NAMESPACE/$NAMESPACE_PROD/g" ./app-deploy-chart/values.yaml
-    - sed -i "s/TAG/prod/g" ./app-deploy-chart/values.yaml
-    - helm upgrade app app-deploy-chart
+  <<: *deploy_teamplate
+
