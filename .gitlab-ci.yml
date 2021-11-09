@@ -43,7 +43,7 @@ Build:
   script:
     - sed -i "s/NAMESPACE/$NAMESPACE/g" ./app-deploy-chart/values.yaml
     - sed -i "s/TAG/$TAG/g" ./app-deploy-chart/values.yaml
-    - helm upgrade app app-deploy-chart
+    - helm upgrade $APP_CHART app-deploy-chart
 
 Deploy_dev:
   environment:
