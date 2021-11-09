@@ -46,6 +46,10 @@ Build:
     - helm upgrade app app-deploy-chart
 
 Deploy_dev:
+  environment:
+    name: dev
+    deployment_tier: development
+    url: http://dev-school-app.$NAMESPACE.school.telekom.sh/dev-ops-school/index.html
   needs:
     - Build
   tags:
@@ -55,6 +59,10 @@ Deploy_dev:
 
 
 Deploy_prod:
+  environment:
+    name: prod
+    deployment_tier: production
+    url: http://dev-school-app.$NAMESPACE.school.telekom.sh/dev-ops-school/index.html
   needs:
     - Deploy_dev
   tags:
