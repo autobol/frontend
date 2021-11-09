@@ -10,7 +10,7 @@ stages:
     - docker:19.03.12-dind
   image: docker
 
-Pre-building:
+Pre-build:
   stage: pre-build
   <<: *job_config
   script:
@@ -26,7 +26,7 @@ Pre-building:
     - when: never
 
 
-# Building:
+Build:
   stage: build
   <<: *job_config
   script:
@@ -37,9 +37,19 @@ Pre-building:
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_REGISTRY/frontend:latest
 
-Deploy:
+Deploy_dev:
+  stage: deploy
+  needs:
+    - Build
+  tags:
+    - aws_dev_deploy
+  script:
+    - helm upgrade app app-deploy-chart
+
+
+Deploy_prod:
   stage: deploy
   tags:
-    - aws_deploy
+    - aws_prod_deploy
   script:
     - helm upgrade app app-deploy-chart
