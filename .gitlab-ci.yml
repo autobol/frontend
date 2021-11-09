@@ -50,8 +50,6 @@ Deploy_dev:
     name: dev
     deployment_tier: development
     url: http://dev-school-app.$NAMESPACE.school.telekom.sh/dev-ops-school/index.html
-  needs:
-    - Build
   tags:
     - aws_dev_deploy
   <<: *deploy_teamplate
