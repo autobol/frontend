@@ -44,6 +44,8 @@ Deploy_dev:
   tags:
     - aws_dev_deploy
   script:
+    - sed -i "s/NAMESPACE/$NAMESPACE_DEV/g" ./app-deploy-chart/values.yaml
+    - sed -i "s/TAG/latest/g" ./app-deploy-chart/values.yaml
     - helm upgrade app app-deploy-chart
 
 
@@ -52,4 +54,6 @@ Deploy_prod:
   tags:
     - aws_prod_deploy
   script:
+    - sed -i "s/NAMESPACE/$NAMESPACE_PROD/g" ./app-deploy-chart/values.yaml
+    - sed -i "s/TAG/prod/g" ./app-deploy-chart/values.yaml
     - helm upgrade app app-deploy-chart

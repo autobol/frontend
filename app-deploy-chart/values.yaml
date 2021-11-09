@@ -7,7 +7,7 @@ backend:
   deployment:
     containers:
       name: backend-cnt
-      image: autobol/backend:latest
+      image: autobol/backend:TAG
       containerPort: 80
   
   service:
@@ -38,6 +38,6 @@ frontend:
 ingress:
   name: application-deployment
   app: application-deployment
-  host: dev-school-app.rvv.school.telekom.sh
+  host: dev-school-app.NAMESPACE.school.telekom.sh
   path: /
   pathType: Prefix
