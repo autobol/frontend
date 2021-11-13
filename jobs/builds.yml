@@ -22,9 +22,17 @@ Pre-build:
 Build:
   stage: build
   <<: *build_template
+  before_script:
+    - apk add git && apk add python3
+    - project_url=$(echo $CI_PROJECT_URL | sed 's/https:\/\///')
+    - git remote set-url origin https://oauth2:$GITLAB_TOKEN@$project_url
   script:
+    - VERSION_TAG=$(python3 version.py "$CI_COMMIT_MESSAGE" $(git describe --tags))
+    - GIT_TAG=$VERSION_TAG-$CI_COMMIT_SHORT_SHA
+    - git tag $GIT_TAG && git push origin $GIT_TAG
     - docker build `
      `-t $DOCKER_REGISTRY/frontend:latest `
+     `-t $DOCKER_REGISTRY/frontend:$VERSION_TAG `
      `--build-arg YARN_VERSION=$YARN_VERSION `
      `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
