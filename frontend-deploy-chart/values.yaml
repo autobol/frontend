@@ -6,7 +6,7 @@ replicaCount: 1
 deployment:
   containers:
     name: frontend-cnt
-    image: autobol/frontend:latest
+    image: autobol/frontend:TAG
     containerPort: 80
 
 service:
