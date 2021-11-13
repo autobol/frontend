@@ -18,5 +18,6 @@ FROM openjdk:8 AS work
 
 RUN mkdir /app
 WORKDIR /app
-COPY --from=build app/devschool-front-app-server/build/libs/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=build app/devschool-front-app-server/build/libs/*.jar front.jar
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "front.jar"]
