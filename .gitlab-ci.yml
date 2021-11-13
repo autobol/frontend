@@ -3,8 +3,6 @@ stages:
   - build
   - deploy
 
-
-
-
-
-
+include:
+  - local: '/jobs/builds.yml'
+  - local: '/jobs/deploy.yml'
