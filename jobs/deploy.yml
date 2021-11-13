@@ -1,0 +1,28 @@
+.deploy_teamplate: &deploy_teamplate
+  stage: deploy
+  script:
+    - sed -i "s/NAMESPACE/$NAMESPACE/g" ./frontend-deploy-chart/values.yaml
+    - sed -i "s/TAG/$TAG/g" ./frontend-deploy-chart/values.yaml
+    - helm upgrade $CHART_NAME frontend-deploy-chart -i
+  only: ["main"]
+
+Deploy_dev:
+  environment:
+    name: dev
+    deployment_tier: development
+    url: http://dev-school-app.$NAMESPACE.school.telekom.sh/dev-ops-school/index.html
+  tags:
+    - aws_dev_deploy
+  <<: *deploy_teamplate
+
+Deploy_prod:
+  environment:
+    name: prod
+    deployment_tier: production
+    url: http://dev-school-app.$NAMESPACE.school.telekom.sh/dev-ops-school/index.html
+  needs:
+    - Deploy_dev
+  tags:
+    - aws_prod_deploy
+  when: manual
+  <<: *deploy_teamplate

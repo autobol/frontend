@@ -1,5 +1,5 @@
 apiVersion: v2
-name: app-deploy-chart
+name: frontend-deploy-chart
 description: A Helm chart for Kubernetes
 
 type: application

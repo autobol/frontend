@@ -1,0 +1,32 @@
+.build_template: &build_template
+  tags: ["docker"]
+  services: ["docker:19.03.13-dind"]
+  image: docker:19.03.13-dind
+
+Pre-build:
+  stage: pre-build
+  <<: *build_template
+  script:
+    - docker build `
+     `-t $DOCKER_USER/image_for_build_front:latest `
+     `-f ./Dockerfile.pre-build `
+     `--build-arg ALPINE_VERSION=$ALPINE_VERSION .
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+    - docker push $DOCKER_USER/image_for_build_front:latest
+  rules:
+    - if: '$RUN_REBUILD_IMAGE_FOR_BUILD != "no" && $CI_COMMIT_REF_NAME == "main"'
+      when: always
+    - when: never
+
+
+Build:
+  stage: build
+  <<: *build_template
+  script:
+    - docker build `
+     `-t $DOCKER_REGISTRY/frontend:latest `
+     `--build-arg YARN_VERSION=$YARN_VERSION `
+     `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
+    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+    - docker push $DOCKER_REGISTRY/frontend:latest
+  only: ["main"]

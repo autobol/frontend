@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.frontend.name }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.frontend.app }}
+    spec:
+      containers:
+      - name: {{ .Values.frontend.deployment.containers.name }}
+        image: {{ .Values.frontend.deployment.containers.image }}
+        ports:
+        - containerPort: {{ .Values.frontend.deployment.containers.containerPort }}
+        args: 
+          - -port={{ .Values.service.targetPort }}
+          - -P:ktor.backend.port={{ .Values.backend.port }}
+          - -P:ktor.backend.host={{ .Values.backend.name }}
