@@ -15,8 +15,8 @@ service:
   targetPort: 8080
 
 ingress:
-  name: application-deployment
-  app: application-deployment
+  class: nginx
+  secretName: tls-secret
   host: dev-school-app.NAMESPACE.school.telekom.sh
   path: /
   pathType: Prefix
