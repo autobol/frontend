@@ -1,9 +1,8 @@
 .deploy_teamplate: &deploy_teamplate
   stage: deploy
   script:
-    - GIT_TAG=$(git describe --tags) && VER_TAG=${GIT_TAG%-*}
-    - sed -i "s/TAG/$VER_TAG/g" ./frontend-deploy-chart/values.yaml
-    - sed -i "s/APP_VERSION/$VER_TAG/g" ./frontend-deploy-chart/Chart.yaml 
+    - sed -i "s/TAG/$TAG/g" ./frontend-deploy-chart/values.yaml
+    - sed -i "s/APP_VERSION/$TAG/g" ./frontend-deploy-chart/Chart.yaml 
     - sed -i "s/NAMESPACE/$NAMESPACE/g" ./frontend-deploy-chart/values.yaml
     - helm upgrade $CHART_NAME frontend-deploy-chart -i
   only: ["main"]
