@@ -1,7 +1,7 @@
 .build_template: &build_template
   tags: ["docker"]
   services: ["docker:19.03.13-dind"]
-  image: docker:19.03.13-dind
+  image: docker
 
 Pre-build:
   stage: pre-build
@@ -34,7 +34,7 @@ Build:
      `--build-arg YARN_VERSION=$YARN_VERSION `
      `--build-arg GRADLE_VERSION=$GRADLE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-    - docker push $DOCKER_REGISTRY/frontend -a
+    - docker push $DOCKER_REGISTRY/frontend --all-tags
     - GIT_TAG=$VERSION_TAG-$CI_COMMIT_SHORT_SHA
     - git tag $GIT_TAG && git push origin $GIT_TAG
   only: ["main"]
