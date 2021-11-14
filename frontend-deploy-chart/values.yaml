@@ -21,6 +21,11 @@ ingress:
   path: /
   pathType: Prefix
 
+issuer:
+  email: vladimir.autobol@gmail.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+  secretKey: acme-account-key
+
 backend:
   port: 80
   name: backend-deployment
