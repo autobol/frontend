@@ -14,5 +14,5 @@ Rollback_dev:
 Rollback_prod:
   environment: prod
   tags:
-    - prod
+    - aws_prod_deploy
   <<: *rollback_teamplate
