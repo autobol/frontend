@@ -1,3 +1,4 @@
+#Деплой приложения
 .deploy_teamplate: &deploy_teamplate
   stage: deploy
   script:

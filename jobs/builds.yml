@@ -3,26 +3,29 @@
   services: ["docker:19.03.13-dind"]
   image: docker
 
+#Билд образа, в котором будет собираться приложение, ускоряет саму сборку примерно на 20 секунд, src=Dockerfile.pre-build
 Pre-build:
   stage: pre-build
   <<: *build_template
   script:
     - docker build `
-     `-t $DOCKER_USER/image_for_build_front:latest `
+     `-t $DOCKER_USER/image_for_build_front:latest ` 
      `-f ./Dockerfile.pre-build `
      `--build-arg ALPINE_VERSION=$ALPINE_VERSION .
     - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
     - docker push $DOCKER_USER/image_for_build_front:latest
   rules:
+    # Выделил отдельную переменную для контроля запуска джобы
     - if: '$RUN_REBUILD_IMAGE_FOR_BUILD != "no" && $CI_COMMIT_REF_NAME == "main"'
       when: always
     - when: never
 
+#Билд самого приложения
 Build:
   stage: build
   <<: *build_template
   before_script:
-    - apk add git && apk add python3
+    - apk add git && apk add python3  #для версионирования
     - project_url=$(echo $CI_PROJECT_URL | sed 's/https:\/\///')
     - git remote set-url origin https://oauth2:$GITLAB_TOKEN@$project_url
   script:
