@@ -29,7 +29,7 @@ Build:
     - project_url=$(echo $CI_PROJECT_URL | sed 's/https:\/\///')
     - git remote set-url origin https://oauth2:$GITLAB_TOKEN@$project_url
   script:
-    - VERSION_TAG=$(python3 version.py "$CI_COMMIT_MESSAGE" $(git describe --tags))
+    - VERSION_TAG=$(python3 version.py "$CI_COMMIT_MESSAGE" $(git describe --tags) $CI_COMMIT_SHORT_SHA)
     - docker build `
      `-t $DOCKER_REGISTRY/frontend:latest `
      `-t $DOCKER_REGISTRY/frontend:$VERSION_TAG `
