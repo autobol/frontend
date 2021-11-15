@@ -2,7 +2,9 @@ stages:
   - pre-build
   - build
   - deploy
+  - rollback
 
 include:
   - local: '/jobs/builds.yml'
   - local: '/jobs/deploy.yml'
+  - local: '/jobs/rollback.yml'

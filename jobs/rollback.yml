@@ -1,0 +1,18 @@
+.rollback_teamplate: &rollback_teamplate
+  stage: rollback
+  script:
+    - helm rollback $CHART_NAME 0
+  when: manual
+
+
+Rollback_dev:
+  environment: dev
+  tags:
+    - aws_dev_deploy
+  <<: *rollback_teamplate
+
+Rollback_prod:
+  environment: prod
+  tags:
+    - prod
+  <<: *rollback_teamplate
