@@ -8,12 +8,14 @@
 
 Rollback_dev:
   environment: dev
+  needs: ["Deploy_dev"]
   tags:
     - aws_dev_deploy
   <<: *rollback_teamplate
 
 Rollback_prod:
   environment: prod
+  needs: ["Deploy_prod"]
   tags:
     - aws_prod_deploy
   <<: *rollback_teamplate
