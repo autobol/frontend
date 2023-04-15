@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build and publish') {
             steps {
-                bash''' 
+                sh''' 
                     - docker build `
                     `-t $DOCKER_REGISTRY/frontend:latest `
                     `-t $DOCKER_REGISTRY/frontend:jenk `
