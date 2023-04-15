@@ -3,7 +3,6 @@ pipeline {
 
     stages {
         stage('Build and publish') {
-            agent {docker {image 'docker:latest'}}
             steps {
                 bash''' 
                     - docker build `
