@@ -5,7 +5,7 @@ pipeline {
         stage('Build and publish') {
             steps {
                 sh''' 
-                    - docker build `
+                    docker build `
                     `-t $DOCKER_REGISTRY/frontend:latest `
                     `-t $DOCKER_REGISTRY/frontend:jenk `
                     `--build-arg YARN_VERSION=$YARN_VERSION `
